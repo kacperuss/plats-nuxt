@@ -1,5 +1,5 @@
 <template>
-    <section class="bg-black text-white text-12">Header</section>
+    <section></section>
 </template>
 
 <script>

@@ -8,8 +8,8 @@ export default {
 
     // Global page headers: https://go.nuxtjs.dev/config-head
     head: {
-        title: 'Page title',
-        description: 'Page description',
+        title: 'Kacperuss Platynowanie',
+        description: 'Your own list of your biggest gaming achievements',
         htmlAttrs: {
             lang: 'en',
         },
@@ -25,7 +25,17 @@ export default {
                 content: 'Page description',
             },
         ],
-        link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+        link: [
+            { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+            { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Rajdhani:500,700&display=swap' },
+        ],
+        script: [
+            {
+                hid: 'fontawesome',
+                src: 'https://kit.fontawesome.com/bc17b065a9.js',
+                crossorigin: 'anonymous',
+            },
+        ],
     },
 
     // Global CSS: https://go.nuxtjs.dev/config-css

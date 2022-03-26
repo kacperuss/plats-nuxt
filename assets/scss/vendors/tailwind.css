@@ -16,16 +16,6 @@
             letter-spacing: 0;
         }
     }
-
-    ._grid {
-        @apply content-center md:gap-8 grid-cols-12 grid col-span-full;
-    }
-    ._flex {
-        @apply flex justify-start items-center;
-    }
-    ._title {
-        @apply text-8 leading-13 md:text-16 md:leading-11 font-bold;
-    }
 }
 
 @layer utilities {

@@ -1,5 +1,7 @@
 <template>
-    <section></section>
+    <main class="grid grid-cols-1">
+        <Favs />
+    </main>
 </template>
 
 <script>
