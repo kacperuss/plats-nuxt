@@ -3,16 +3,16 @@
         <div class="w-full h-screen relative overflow-hidden">
             <div v-for="(item, i) in fav_list" :key="i" class="_slide bg-black absolute w-full h-full top-0 left-0">
                 <div class="_img w-full h-full">
-                    <Photo :src_dsk="item.back_img" class="w-full h-full" />
+                    <Photo :src_dsk="item.back_img || item.front_img" class="w-full h-full" />
                 </div>
                 <div class="absolute w-full h-full top-0 left-0 bg-black opacity-40"></div>
                 <div class="absolute top-1/2 -translate-y-1/2" :class="i % 2 ? 'right-20 text-right' : 'left-20'">
                     <div class="_title text-20 font-bold">{{ item.title }}</div>
                     <div class="_console flex gap-4 text-8 pb-6" :class="i % 2 ? 'justify-end' : ''">
-                        <ConsoleDict type="logo" :code="item.console" />
-                        <ConsoleDict type="name" :code="item.console" />
+                        <ConsoleDict type="logo" :code="item.list[0].console" />
+                        <ConsoleDict type="name" :code="item.list[0].console" />
                     </div>
-                    <div class="_date text-6">{{ timestampToDate(item.date) }}</div>
+                    <div class="_date text-6">{{ timestampToDate(item.list[0].date) }}</div>
                 </div>
             </div>
         </div>
@@ -26,32 +26,9 @@ import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin.min'
 gsap.registerPlugin(ScrollToPlugin)
 
 export default {
+    props: ['fav_list'],
     data: () => ({
         timeline: null,
-
-        fav_list: [
-            {
-                title: 'Elden Ring',
-                console: 'ps5',
-                front_img: require('~/assets/img/placeholders/elden_ring_front.webp'),
-                back_img: require('~/assets/img/placeholders/elden_ring_back.jpg'),
-                date: 1672012800,
-            },
-            {
-                title: 'Metal Gear Solid 5',
-                console: 'ps3',
-                front_img: require('~/assets/img/placeholders/mgs5_front.jpg'),
-                back_img: require('~/assets/img/placeholders/mgs5_back.jpg'),
-                date: 1649718000,
-            },
-            {
-                title: "Demon's Souls",
-                console: 'ps5',
-                front_img: require('~/assets/img/placeholders/demon_front.webp'),
-                back_img: require('~/assets/img/placeholders/demon_back.png'),
-                date: 1285887600,
-            },
-        ],
     }),
     methods: {
         timestampToDate(ts) {
@@ -107,7 +84,7 @@ export default {
                 }
             }
 
-            console.log(slides)
+            // console.log(slides)
         },
 
         getRandomImgAnim() {

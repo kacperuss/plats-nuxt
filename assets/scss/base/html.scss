@@ -40,19 +40,19 @@ body {
 html,
 body {
     scrollbar-width: thin;
-    scrollbar-color: var(--orange) var(--white);
+    scrollbar-color: var(--blue) var(--black);
 
     &::-webkit-scrollbar {
         width: 10px;
     }
 
     &::-webkit-scrollbar-track {
-        background: var(--white);
+        background: var(--black);
     }
 
     &::-webkit-scrollbar-thumb {
-        background-color: var(--orange);
+        background-color: var(--blue);
         border-radius: 5px;
-        border: 2px solid var(--white);
+        border: 2px solid var(--black);
     }
 }
