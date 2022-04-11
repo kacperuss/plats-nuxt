@@ -21,9 +21,6 @@
 
 <script>
 import gsap from 'gsap'
-import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin.min'
-
-gsap.registerPlugin(ScrollToPlugin)
 
 export default {
     props: ['fav_list'],

@@ -58,11 +58,11 @@ export default {
         },
 
         onLogoHover(game_index, icon_index) {
-            console.log(game_index, icon_index)
-            console.log(this.game_list[game_index].show_date)
+            // console.log(game_index, icon_index)
+            // console.log(this.game_list[game_index].show_date)
 
             this.game_list[game_index].show_date = icon_index
-            console.log(this.game_list[game_index].show_date)
+            // console.log(this.game_list[game_index].show_date)
         },
     },
 }

@@ -1,7 +1,10 @@
 <template>
     <main class="grid grid-cols-1">
+        <div id="showcase_anchor"></div>
         <Favs :fav_list="fav_list" />
-        <FullList :game_list="game_list" />
+        <HeaderSwitch />
+        <div id="fulllist_anchor"></div>
+        <FullList :game_list="[...game_list, ...game_list, ...game_list, ...game_list]" />
     </main>
 </template>
 
