@@ -1,50 +1,98 @@
 <template>
     <main class="grid grid-cols-1">
-        <section class="py-20 text-center text-20">
-            <div class="fadeUp">Empty page</div>
-        </section>
-        <section class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 p-8">
-            <Photo :src_dsk="require('~/assets/img/image1.webp')" class="mx-auto h-200 w-full" />
-            <div class="text-4">Text</div>
-        </section>
-        <section class="py-20">
-            <div class="text-center text-12">API data example:</div>
-            <div class="w-300 mx-auto">
-                <div v-for="todo in todos" :key="todo.id" :class="{ 'text-green-600 font-bold': todo.completed }">
-                    {{ todo.title }}
-                </div>
-            </div>
-        </section>
+        <div id="showcase_anchor"></div>
+        <Favs v-if="fav_list" :fav_list="fav_list" />
+        <div v-else class="bg-black h-screen"></div>
+        <HeaderSwitch />
+        <div id="fulllist_anchor"></div>
+        <Filters />
+        <FullList :game_list="plat_list" />
     </main>
 </template>
 
 <script>
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger.min'
+import StoryblokClient from 'storyblok-js-client'
 
-gsap.registerPlugin(ScrollTrigger)
-
-export default {
-    mounted() {
-        this.$fadeUpInit()
+const Storyblok = new StoryblokClient({
+    accessToken: 'BQSh00DYhQzNBbRdEsQzHQtt',
+    cache: {
+        clear: 'auto',
+        type: 'memory',
     },
-    async asyncData({ $axios, params, error }) {
-        try {
-            let response = await $axios.$get(`https://jsonplaceholder.typicode.com/todos`)
-            // console.log(response)
+})
+export default {
+    data: () => ({
+        fav_list: null,
 
-            return {
-                todos: response.slice(0, 20),
-            }
-        } catch (err) {
-            console.log(err)
-            if ($axios.isCancel(error)) {
-                console.log('Aborted')
-            } else {
-                error({ statusCode: 500 })
+        game_list: [],
+        plat_list: [],
+    }),
+
+    methods: {
+        async fetch_stuff() {
+            try {
+                // === GAME LIST ===
+
+                this.game_list = []
+                let page = 1
+                while (true) {
+                    let response = await Storyblok.get('cdn/stories', {
+                        starts_with: 'games/',
+                        per_page: 100,
+                        page: page,
+                    })
+                    if (response.data.stories.length == 0) break
+
+                    this.game_list.push(...response.data.stories)
+                    page += 1
+                }
+
+                // === PLAT LIST ===
+
+                this.plat_list = []
+                page = 1
+                while (true) {
+                    let response = await Storyblok.get('cdn/stories', {
+                        starts_with: 'plats/',
+                        per_page: 100,
+                        page: page,
+                    })
+                    if (response.data.stories.length == 0) break
+
+                    this.plat_list.push(
+                        ...response.data.stories.map((x) => {
+                            x['game'] = this.$getGame(this.game_list, x.content.Game)
+                            return x
+                        })
+                    )
+                    page += 1
+                }
+
+                console.log(this.plat_list[0])
+
+                // === FAV LIST ===
+
+                let resp_favs = await Storyblok.get('cdn/stories/global')
+                this.fav_list = resp_favs.data.story.content.Favourites.map((x) => {
+                    let y = this.$getGame(this.game_list, x)
+                    y['plats'] = this.$getPlats(this.plat_list, x)
+                    return y
+                })
+                console.log(this.fav_list)
+
+                // Error catcher
+            } catch (err) {
+                console.log(err)
+                this.$nuxt.error({ statusCode: 500 })
                 return
             }
-        }
+        },
+    },
+
+    mounted() {
+        this.fetch_stuff()
     },
 }
 </script>
+
+<style lang="scss" scoped></style>

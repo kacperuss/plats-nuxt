@@ -68,4 +68,37 @@ export default (context, inject) => {
     }
     inject('toggleBodyScroll', toggleBodyScroll)
     context.$toggleBodyScroll = toggleBodyScroll
+
+    const getGame = (game_list, id_or_slug) => {
+        let f = game_list.filter((x) => x.uuid == id_or_slug || x.slug == id_or_slug)
+        if (f.length) return f[0]
+        return null
+    }
+    inject('getGame', getGame)
+    context.$getGame = getGame
+
+    const getPlats = (plat_list, id) => {
+        let f = plat_list.filter((x) => x.content.Game == id).map((x) => x.content)
+        return f || null
+    }
+    inject('getPlats', getPlats)
+    context.$getPlats = getPlats
+
+    const getImg = (item, thumbnail) => {
+        if (thumbnail)
+            return (
+                item.content.img_thumbnail_link ||
+                item.content.img_thumbnail.filename ||
+                item.content.img_background_link ||
+                item.content.img_background.filename
+            )
+        return (
+            item.content.img_background_link ||
+            item.content.img_background.filename ||
+            item.content.img_thumbnail_link ||
+            item.content.img_thumbnail.filename
+        )
+    }
+    inject('getImg', getImg)
+    context.$getImg = getImg
 }

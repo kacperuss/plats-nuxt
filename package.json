@@ -15,7 +15,8 @@
         "gsap": "^3.8.0",
         "js-cookie": "^3.0.1",
         "nuxt": "^2.15.7",
-        "nuxt-lazy-load": "^1.2.7"
+        "nuxt-lazy-load": "^1.2.7",
+        "storyblok-js-client": "^5.0.4"
     },
     "devDependencies": {
         "@nuxtjs/axios": "^5.13.6",

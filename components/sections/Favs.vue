@@ -1,18 +1,27 @@
 <template>
-    <section>
+    <section class="select-none">
         <div class="w-full h-screen relative overflow-hidden">
             <div v-for="(item, i) in fav_list" :key="i" class="_slide bg-black absolute w-full h-full top-0 left-0">
                 <div class="_img w-full h-full">
-                    <Photo :src_dsk="item.back_img || item.front_img" class="w-full h-full" />
+                    <Photo :src_dsk="$getImg(item, false)" class="w-full h-full" />
                 </div>
                 <div class="absolute w-full h-full top-0 left-0 bg-black opacity-40"></div>
                 <div class="absolute top-1/2 -translate-y-1/2" :class="i % 2 ? 'right-20 text-right' : 'left-20'">
-                    <div class="_title text-20 font-bold">{{ item.title }}</div>
-                    <div class="_console flex gap-4 text-8 pb-6" :class="i % 2 ? 'justify-end' : ''">
-                        <ConsoleDict type="logo" :code="item.list[0].console" />
-                        <ConsoleDict type="name" :code="item.list[0].console" />
+                    <div class="_title text-20 font-bold">{{ item.name }}</div>
+                    <div class="">
+                        <div
+                            class="_console flex gap-4 text-8 pb-2"
+                            :class="i % 2 ? 'flex-row-reverse' : ''"
+                            v-for="(console, j) in item.plats"
+                            :key="`console_${i}_${j}`"
+                        >
+                            <ConsoleDict type="logo" :code="console.Platform" />
+                            <ConsoleDict type="name" :code="console.Platform" />
+                        </div>
                     </div>
-                    <div class="_date text-6">{{ timestampToDate(item.list[0].date) }}</div>
+                    <div class="_date text-6" v-if="item.plats.length == 1">
+                        {{ item.plats[0].Date.split(' ')[0] }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -53,7 +62,7 @@ export default {
                 let img = slide.querySelector('._img')
                 let texts = [
                     slide.querySelector('._title'),
-                    slide.querySelector('._console'),
+                    ...slide.querySelectorAll('._console'),
                     slide.querySelector('._date'),
                 ]
 
@@ -72,10 +81,11 @@ export default {
                 this.timeline.add(() => {}, `-=${trans_time + slide_time}`)
 
                 for (let t = 0; t < texts.length; t += 1) {
+                    if (!texts[t]) continue
                     this.timeline.fromTo(
                         texts[t],
                         { opacity: 0 },
-                        { opacity: 1, duration: slide_time / (texts.length * 2), ease: 'power2.inOut' },
+                        { opacity: 1, duration: slide_time / 6, ease: 'power2.inOut' },
                         `>`
                     )
                 }

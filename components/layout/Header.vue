@@ -9,7 +9,7 @@
                 <div @click="AnchorScroll('#showcase_anchor')" class="_sc cursor-pointer">Showcase</div>
                 <div @click="AnchorScroll('#fulllist_anchor')" class="_fl cursor-pointer">Full list</div>
             </div>
-            <a href="/"> Log in </a>
+            <a target="_blank" href="https://app.storyblok.com/#/me/spaces/181985/stories/0/0/index/0"> Edit </a>
         </div>
     </section>
 </template>
@@ -47,6 +47,7 @@ export default {
     background: var(--black);
     font-size: calc(24rem / 16);
     box-shadow: 0 0 20px #000;
+    backdrop-filter: blur(5px);
     &.showcase {
         height: calc(120rem / 16);
         background: linear-gradient(0deg, #0004, #000b);
@@ -62,6 +63,6 @@ export default {
             text-decoration: underline;
         }
     }
-    transition: height 0.3s, font-size 0.3s;
+    transition: height 0.3s ease-in-out, font-size 0.3s ease-in-out;
 }
 </style>

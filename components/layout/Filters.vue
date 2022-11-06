@@ -39,6 +39,8 @@ export default {
         },
     },
     mounted() {
+        this.$el.querySelector('._search_bar').value = ''
+
         this.full_list_component = document.querySelector('#full_list_component')
         this.full_list_component = this.full_list_component ? this.full_list_component.__vue__ : null
     },

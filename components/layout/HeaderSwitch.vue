@@ -17,8 +17,8 @@ export default {
         InitGSAP() {
             this.scrollTrigger = ScrollTrigger.create({
                 trigger: '#header_switch',
-                start: 'top top',
-                end: 'top top',
+                start: '-100 top',
+                end: '-100 top',
                 // markers: true,
                 onLeave: () => {
                     this.header.is_showcase = false
