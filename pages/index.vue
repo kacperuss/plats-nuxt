@@ -5,8 +5,8 @@
         <div v-else class="bg-black h-screen"></div>
         <HeaderSwitch />
         <div id="fulllist_anchor"></div>
-        <Filters />
-        <FullList :game_list="plat_list" />
+        <Filters v-if="plat_list" />
+        <FullList v-if="plat_list" :game_list="plat_list" />
     </main>
 </template>
 
@@ -24,8 +24,8 @@ export default {
     data: () => ({
         fav_list: null,
 
-        game_list: [],
-        plat_list: [],
+        game_list: null,
+        plat_list: null,
     }),
 
     methods: {
@@ -68,8 +68,6 @@ export default {
                     page += 1
                 }
 
-                console.log(this.plat_list[0])
-
                 // === FAV LIST ===
 
                 let resp_favs = await Storyblok.get('cdn/stories/global')
@@ -78,9 +76,9 @@ export default {
                     y['plats'] = this.$getPlats(this.plat_list, x)
                     return y
                 })
-                console.log(this.fav_list)
+                // console.log(this.fav_list)
 
-                // Error catcher
+                //
             } catch (err) {
                 console.log(err)
                 this.$nuxt.error({ statusCode: 500 })

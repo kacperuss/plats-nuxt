@@ -1,7 +1,12 @@
 <template>
     <section class="pt-24 pb-8 px-16">
         <div class="flex justify-between">
-            <div class=""></div>
+            <div class="">
+                <div class="flex gap-3 text-6 cursor-pointer" @click="onSortDateClick()">
+                    Date
+                    <i class="fas" :class="order_asc ? 'fa-sort-up' : 'fa-sort-down'"></i>
+                </div>
+            </div>
             <div class="flex items-center">
                 <input
                     type="text"
@@ -24,6 +29,8 @@ export default {
         search_bar_countdown: null,
 
         full_list_component: null,
+
+        order_asc: false,
     }),
     methods: {
         onSearchClick() {
@@ -36,6 +43,12 @@ export default {
                 if (!this.full_list_component) return
                 this.full_list_component.changeSearchText(this.$el.querySelector('input._search_bar').value)
             }, 500)
+        },
+
+        onSortDateClick() {
+            if (!this.full_list_component) return
+            this.order_asc = !this.order_asc
+            this.full_list_component.changeSortDir(this.order_asc)
         },
     },
     mounted() {

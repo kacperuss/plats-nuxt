@@ -2,9 +2,9 @@
     <section class="py-16 relative" id="full_list_component">
         <div
             v-if="filtered_list && filtered_list.length == 0"
-            class="absolute top-1/4 left-0 w-full text-center opacity-30 text-20"
+            class="absolute top-1/2 left-0 w-full text-center opacity-30 text-20"
         >
-            No matches, empty match carton
+            {{ loading ? 'Loading...' : 'No matches, empty match carton' }}
         </div>
         <div class="grid grid-cols-4 gap-8 px-16">
             <FullListElem
@@ -19,6 +19,9 @@
 </template>
 
 <script>
+const SORT_ASC = (a, b) => a.content.Date > b.content.Date
+const SORT_DESC = (a, b) => a.content.Date < b.content.Date
+
 export default {
     data: () => ({
         filtered_list: null,
@@ -26,6 +29,10 @@ export default {
         searchText: '',
         sortBy: null,
         filters: null,
+
+        order_asc: false,
+
+        loading: false,
     }),
     props: ['game_list'],
     methods: {
@@ -33,25 +40,35 @@ export default {
             this.searchText = newText
             this.runFilters()
         },
+        changeSortDir(asc) {
+            this.order_asc = asc
+            this.runFilters()
+        },
 
         runFilters() {
+            this.loading = true
             this.filtered_list = []
 
             setTimeout(() => {
                 this.filtered_list = [...this.game_list]
+                this.filtered_list.sort(this.order_asc ? SORT_ASC : SORT_DESC)
 
                 if (this.searchText)
                     this.filtered_list = this.filtered_list.filter(
                         (elem) => elem.game.name.toLowerCase().search(this.searchText) != -1
                     )
+                this.loading = false
             }, 100)
         },
+    },
+    mounted() {
+        this.runFilters()
     },
 }
 </script>
 
 <style lang="scss" scoped>
 #full_list_component {
-    min-height: 100vh;
+    min-height: 60vh;
 }
 </style>

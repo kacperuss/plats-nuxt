@@ -28,6 +28,7 @@
                 {{ item.content.Date.split(' ')[0] }}
             </div>
         </div>
+        <a class="block absolute top-0 left-0 w-full h-full" :href="`/game/${item.game.slug}/`"></a>
     </div>
 </template>
 

@@ -5,7 +5,7 @@
                 <i class="fas fa-trophy"></i>
                 KP
             </a>
-            <div class="flex justify-between items-center gap-12">
+            <div class="flex justify-between items-center gap-12" v-if="$route.name == 'index'">
                 <div @click="AnchorScroll('#showcase_anchor')" class="_sc cursor-pointer">Showcase</div>
                 <div @click="AnchorScroll('#fulllist_anchor')" class="_fl cursor-pointer">Full list</div>
             </div>

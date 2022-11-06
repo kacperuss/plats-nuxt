@@ -1,6 +1,8 @@
 <template>
     <main>
-        <section class="text-8 py-4">Error: {{ error.statusCode }}</section>
+        <section class="w-screen h-screen flex justify-center items-center text-8 py-4">
+            Error: {{ error.statusCode }}
+        </section>
     </main>
 </template>
 
