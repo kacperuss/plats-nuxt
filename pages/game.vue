@@ -75,6 +75,7 @@ import StoryblokClient from 'storyblok-js-client'
 
 const Storyblok = new StoryblokClient({
     accessToken: 'BQSh00DYhQzNBbRdEsQzHQtt',
+    https: true,
     cache: {
         clear: 'auto',
         type: 'memory',
@@ -97,7 +98,7 @@ export default {
 
         async fetch_stuff() {
             try {
-                let response = await Storyblok.get(`cdn/stories/games/${this.$route.params.slug}`)
+                let response = await Storyblok.get(`cdn/stories/games/${this.$route.query.game}`)
                 this.game = response.data.story
 
                 // === PLAT LIST ===
@@ -137,6 +138,10 @@ export default {
     },
 
     mounted() {
+        if (!this.$route.query || !this.$route.query.game) {
+            window.location.replace('/')
+            return
+        }
         this.fetch_stuff()
     },
 }
