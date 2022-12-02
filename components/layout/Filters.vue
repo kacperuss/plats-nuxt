@@ -1,5 +1,5 @@
 <template>
-    <section class="pt-24 pb-8 px-16">
+    <section class="pt-24 pb-8 px-16 __1920">
         <div class="flex justify-between">
             <div class="">
                 <div class="flex gap-3 text-6 cursor-pointer" @click="onSortDateClick()">

@@ -1,5 +1,5 @@
 <template>
-    <section class="py-16 relative" id="full_list_component">
+    <section class="py-16 relative __1920" id="full_list_component">
         <div
             v-if="filtered_list && filtered_list.length == 0"
             class="absolute top-1/2 left-0 w-full text-center opacity-30 text-20"

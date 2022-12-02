@@ -1,9 +1,9 @@
 <template>
     <section id="header">
         <div class="__header" :class="is_showcase ? 'showcase' : ''">
-            <a href="/">
-                <i class="fas fa-trophy"></i>
-                KP
+            <a href="/" class="flex">
+                <div class="w-[2em]"><i class="fas fa-trophy"></i></div>
+                <div class="">KP</div>
             </a>
             <div class="flex justify-between items-center gap-12" v-if="$route.name == 'index'">
                 <div @click="AnchorScroll('#showcase_anchor')" class="_sc cursor-pointer">Showcase</div>

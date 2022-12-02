@@ -4,7 +4,7 @@
             <Photo v-if="game" :src_dsk="$getImg(game, false)" class="w-full h-full" />
         </div>
         <HeaderSwitch />
-        <div class="px-60" v-if="game && plats">
+        <div class="px-60 __1920" v-if="game && plats">
             <div class="">
                 <div class="relative">
                     <div class="absolute top-0 -translate-y-1/2 right-0">
