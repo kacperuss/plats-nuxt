@@ -62,7 +62,7 @@
                                 {{ rel.name }}
                             </div>
                         </div>
-                        <a class="block absolute top-0 left-0 w-full h-full" :href="`/game/${rel.slug}/`"></a>
+                        <a class="block absolute top-0 left-0 w-full h-full" :href="`/game/?game=${rel.slug}`"></a>
                     </div>
                 </div>
             </div>
