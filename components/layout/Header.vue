@@ -5,9 +5,9 @@
                 <div class="w-[2em]"><i class="fas fa-trophy"></i></div>
                 <div class="">KP</div>
             </a>
-            <div class="flex justify-between items-center gap-12" v-if="$route.name == 'index'">
-                <div @click="AnchorScroll('#showcase_anchor')" class="_sc cursor-pointer">Showcase</div>
-                <div @click="AnchorScroll('#fulllist_anchor')" class="_fl cursor-pointer">Full list</div>
+            <div class="flex justify-between items-center gap-6 md:gap-12" v-if="$route.name == 'index'">
+                <div @click="AnchorScroll('#showcase_anchor')" class="_sc cursor-pointer py-4">Showcase</div>
+                <div @click="AnchorScroll('#fulllist_anchor')" class="_fl cursor-pointer py-4">Full list</div>
             </div>
             <a target="_blank" href="https://app.storyblok.com/#/me/spaces/181985/stories/0/0/index/0"> Edit </a>
         </div>
@@ -64,5 +64,13 @@ export default {
         }
     }
     transition: height 0.3s ease-in-out, font-size 0.3s ease-in-out;
+    @media (max-width: $phone) {
+        &,
+        &.showcase {
+            padding: 0 calc(20rem / 16);
+            height: calc(60rem / 16);
+            font-size: calc(16rem / 16);
+        }
+    }
 }
 </style>

@@ -2,15 +2,18 @@
     <section class="select-none">
         <div class="w-full h-screen relative overflow-hidden">
             <div v-for="(item, i) in fav_list" :key="i" class="_slide bg-black absolute w-full h-full top-0 left-0">
-                <div class="_img w-full h-full">
+                <div class="_img w-[177vh] md:w-full h-full">
                     <Photo :src_dsk="$getImg(item, false)" class="w-full h-full" />
                 </div>
                 <div class="absolute w-full h-full top-0 left-0 bg-black opacity-40"></div>
-                <div class="absolute top-1/2 -translate-y-1/2" :class="i % 2 ? 'right-20 text-right' : 'left-20'">
-                    <div class="_title text-20 font-bold">{{ item.name }}</div>
+                <div
+                    class="absolute top-1/2 -translate-y-1/2"
+                    :class="i % 2 ? 'right-4 md:right-20 text-right' : 'left-4 md:left-20'"
+                >
+                    <div class="_title text-10 md:text-20 font-bold pb-4">{{ item.name }}</div>
                     <div class="">
                         <div
-                            class="_console flex gap-4 text-8 pb-2"
+                            class="_console flex gap-4 text-6 md:text-8 pb-2"
                             :class="i % 2 ? 'flex-row-reverse' : ''"
                             v-for="(console, j) in item.plats"
                             :key="`console_${i}_${j}`"
@@ -103,8 +106,21 @@ export default {
                 { in: { x: '4%', y: '-2%' }, out: { x: '-4%', y: '2%' } },
                 { in: { x: '-4%', y: '-2%' }, out: { x: '4%', y: '2%' } },
             ]
+            let anims_mob = [
+                { in: { x: '-20%' }, out: { x: '-30%' } },
+                { in: { x: '-30%' }, out: { x: '-20%' } },
+                { in: { x: '-60%' }, out: { x: '-70%' } },
+                { in: { x: '-70%' }, out: { x: '-60%' } },
+                { in: { x: '-40%', y: '2%' }, out: { x: '-50%', y: '-2%' } },
+                { in: { x: '-40%', y: '-2%' }, out: { x: '-50%', y: '2%' } },
+                { in: { x: '-50%', y: '-2%' }, out: { x: '-40%', y: '2%' } },
+                { in: { x: '-50%', y: '2%' }, out: { x: '-40%', y: '-2%' } },
+            ]
+            let is_mobile = window.matchMedia(`(max-width: ${this.$getRootVar('--phone-w')})`).matches
 
-            return anims[Math.floor(Math.random() * anims.length)]
+            return is_mobile
+                ? anims_mob[Math.floor(Math.random() * anims_mob.length)]
+                : anims[Math.floor(Math.random() * anims.length)]
         },
     },
     mounted() {

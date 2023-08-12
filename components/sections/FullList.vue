@@ -1,12 +1,12 @@
 <template>
-    <section class="py-16 relative __1920" id="full_list_component">
+    <section class="py-10 md:py-16 relative __1920" id="full_list_component">
         <div
             v-if="filtered_list && filtered_list.length == 0"
             class="absolute top-1/2 left-0 w-full text-center opacity-30 text-20"
         >
             {{ loading ? 'Loading...' : 'No matches, empty match carton' }}
         </div>
-        <div class="grid grid-cols-4 gap-8 px-16">
+        <div class="grid md:grid-cols-4 gap-8 px-4 md:px-16">
             <FullListElem
                 v-for="(item, i) in filtered_list || game_list"
                 :key="i"

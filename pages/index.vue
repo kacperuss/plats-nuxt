@@ -1,5 +1,5 @@
 <template>
-    <main class="grid grid-cols-1">
+    <main class="grid grid-cols-1 overflow-hidden">
         <div id="showcase_anchor"></div>
         <Favs v-if="fav_list" :fav_list="fav_list" />
         <div v-else class="bg-black h-screen"></div>

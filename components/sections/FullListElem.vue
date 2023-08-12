@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-black h-60 relative overflow-hidden group">
+    <div class="bg-black h-60 relative overflow-hidden group" :class="mob_hover ? '_hover' : ''">
         <div class="w-full h-full group-hover:scale-110 transition-transform duration-300">
             <Photo :src_dsk="$getImg(item.game, true)" class="w-full h-full" />
         </div>
@@ -33,8 +33,16 @@
 </template>
 
 <script>
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger.min'
+
+gsap.registerPlugin(ScrollTrigger)
+
 export default {
     props: ['item'],
+    data: () => ({
+        mob_hover: false,
+    }),
     methods: {
         timestampToDate(ts) {
             let date = new Date(ts * 1000)
@@ -47,27 +55,45 @@ export default {
 
             return year + '-' + month + '-' + day
         },
+
+        InitGSAP() {
+            this.scrollTrigger = ScrollTrigger.create({
+                trigger: this.$el,
+                start: 'top 50%',
+                end: 'bottom 50%',
+                // markers: true,
+                onEnter: () => {
+                    this.mob_hover = true
+                },
+                onEnterBack: () => {
+                    this.mob_hover = true
+                },
+                onLeave: () => {
+                    this.mob_hover = false
+                },
+                onLeaveBack: () => {
+                    this.mob_hover = false
+                },
+            })
+        },
+    },
+
+    mounted() {
+        let is_mobile = window.matchMedia(`(max-width: ${this.$getRootVar('--phone-w')})`).matches
+        if (is_mobile) this.InitGSAP()
     },
 }
 </script>
 
 <style lang="scss" scoped>
-.__show_on_hover {
-    position: absolute;
-    top: 0;
-    left: 100%;
-    white-space: nowrap;
-    background: black;
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.2s, visibility 0.2s;
-}
-.__console_icon:hover {
-    .__show_on_hover {
-        opacity: 1;
-        visibility: visible;
+@media (max-width: $phone) {
+    ._hover {
+        .group-hover\:scale-110 {
+            transform: scale(1.1);
+        }
+        .group-hover\:opacity-90 {
+            opacity: 0.9;
+        }
     }
 }
 </style>

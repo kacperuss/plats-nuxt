@@ -1,12 +1,13 @@
 <template>
-    <section class="pt-24 pb-8 px-16 __1920">
-        <div class="flex justify-between">
-            <div class="">
+    <section class="p-4 md:pt-24 md:pb-8 md:px-16 __1920">
+        <div class="flex justify-between items-center">
+            <div class="md:block" :class="is_search_open ? 'hidden' : ''">
                 <div class="flex gap-3 text-6 cursor-pointer" @click="onSortDateClick()">
                     Date
                     <i class="fas" :class="order_asc ? 'fa-sort-up' : 'fa-sort-down'"></i>
                 </div>
             </div>
+            <div class="md:hidden" :class="is_search_open ? 'block' : ''"></div>
             <div class="flex items-center">
                 <input
                     type="text"
@@ -78,6 +79,12 @@ input._search_bar {
         width: 0px;
         opacity: 0;
         visibility: hidden;
+    }
+
+    @media (max-width: $phone) {
+        &:not(._hidden) {
+            width: calc(280rem / 16);
+        }
     }
 }
 </style>
