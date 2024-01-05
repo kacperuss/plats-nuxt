@@ -52,6 +52,7 @@ export default {
         '@nuxtjs/svg',
         '@nuxtjs/style-resources',
         '@nuxtjs/axios',
+        '@nuxtjs/dotenv',
     ],
 
     tailwindcss: {

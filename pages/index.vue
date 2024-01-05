@@ -14,7 +14,7 @@
 import StoryblokClient from 'storyblok-js-client'
 
 const Storyblok = new StoryblokClient({
-    accessToken: 'BQSh00DYhQzNBbRdEsQzHQtt',
+    accessToken: 'O9DK98DQ6vzPtqLewsYXqwtt',
     https: true,
     cache: {
         clear: 'auto',
